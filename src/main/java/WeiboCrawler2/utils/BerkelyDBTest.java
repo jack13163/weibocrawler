@@ -28,7 +28,7 @@ public class BerkelyDBTest {
 
     public void open(String dbName) {
         DatabaseConfig dbConfig = new DatabaseConfig();
-        dbConfig.setAllowCreate(true);//ÊÇ·ñÔÊĞí´´½¨
+        dbConfig.setAllowCreate(true);//æ˜¯å¦å…è®¸åˆ›å»º
 
         try {
             db = env.openDatabase(null, dbName, dbConfig);
@@ -148,7 +148,7 @@ public class BerkelyDBTest {
 
     public static void main(String[] args) throws Exception {
         BerkelyDBTest mbdb = new BerkelyDBTest();
-        mbdb.setUp("Data/env/test.bdb", 1000000);//ÉèÖÃÎÄ¼ş¼Ğ½øĞĞ´æ´¢£¬²¢ÉèÖÃ´óĞ¡
+        mbdb.setUp("Data/env/test.bdb", 1000000);//è®¾ç½®æ–‡ä»¶å¤¹è¿›è¡Œå­˜å‚¨ï¼Œå¹¶è®¾ç½®å¤§å°
         mbdb.open("myDB");
 
         List<String> list1 = mbdb.getAllValue();
@@ -156,13 +156,13 @@ public class BerkelyDBTest {
             System.out.println(str);
         }
 
-        System.out.println("¿ªÊ¼ÏòBerkeley DBÖĞ´æÈëÊı¾İ...");
+        System.out.println("å¼€å§‹å‘Berkeley DBä¸­å­˜å…¥æ•°æ®...");
         try {
 
             for (int i = 0; i < 10; i++) {
                 String key = "myKey" + i;
                 String value = "myValuesq" + i;
-                mbdb.put(key, value);//´æÈëÊı¾İ
+                mbdb.put(key, value);//å­˜å…¥æ•°æ®
             }
         } catch (Exception e) {
             e.printStackTrace();

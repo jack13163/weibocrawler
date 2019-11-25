@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ÓÃÓÚ¶àÏß³Ì¿ØÖÆ
+ * ç”¨äºå¤šçº¿ç¨‹æ§åˆ¶
  */
 public class IPList {
     private static List<IPBean> ipBeanList = new ArrayList<IPBean>();
 
-    // ¼ÆÊıÆ÷,Ïß³Ì½áÊø¼´+1, ÓÃÓÚÅĞ¶ÏËùÓĞ¸±Ïß³ÌÊÇ·ñÍê³É
+    // è®¡æ•°å™¨,çº¿ç¨‹ç»“æŸå³+1, ç”¨äºåˆ¤æ–­æ‰€æœ‰å‰¯çº¿ç¨‹æ˜¯å¦å®Œæˆ
     private static int count = 0;
 
     /**
-     * Ö§³Ö²¢·¢²Ù×÷
+     * æ”¯æŒå¹¶å‘æ“ä½œ
      *
      * @param bean
      */

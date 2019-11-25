@@ -103,7 +103,7 @@ public class JWindowsFrame extends JFrame {
     private JTextField JTFPlainIPs;
     private JTextField JTFPages;
 
-    final private String OPEN_FILE_BUTTON_NAME = "ä¯ÀÀ";
+    final private String OPEN_FILE_BUTTON_NAME = "æµè§ˆ";
     private JButton JBCrawl;
     private JButton JBGetIP;
     private JButton JBSaveIPOpenFile;
@@ -114,10 +114,10 @@ public class JWindowsFrame extends JFrame {
 
     public JWindowsFrame() {
 
-        JMIAuthor = new JMenuItem("Èí¼ş×÷Õß");
-        JMIInstruction = new JMenuItem("Ê¹ÓÃËµÃ÷");
+        JMIAuthor = new JMenuItem("è½¯ä»¶ä½œè€…");
+        JMIInstruction = new JMenuItem("ä½¿ç”¨è¯´æ˜");
 
-        JMAbout = new JMenu("¹ØÓÚ");
+        JMAbout = new JMenu("å…³äº");
 
         JMAbout.add(JMIAuthor);
         JMAbout.add(JMIInstruction);
@@ -139,7 +139,7 @@ public class JWindowsFrame extends JFrame {
         JSaveIPPathPanel = new JPanel();
         JSaveIPPathPanel.setLayout(new BorderLayout());
 
-        JLSavePlainIPs = new JLabel("±£´æ¿ÉÓÃµÄ´úÀíIPµÄÂ·¾¶£¨*²»ÒªÒÔĞ±¸Ü½áÎ²*£©");
+        JLSavePlainIPs = new JLabel("ä¿å­˜å¯ç”¨çš„ä»£ç†IPçš„è·¯å¾„ï¼ˆ*ä¸è¦ä»¥æ–œæ ç»“å°¾*ï¼‰");
 
         JTFSavePlainIPs = new JTextField(PATH_FIELD_LENGTH);
         JTFSavePlainIPs.setEditable(true);
@@ -147,7 +147,7 @@ public class JWindowsFrame extends JFrame {
 
         JBSaveIPOpenFile = new JButton(OPEN_FILE_BUTTON_NAME);
 
-        JBGetIP = new JButton("»ñÈ¡´úÀíIP");
+        JBGetIP = new JButton("è·å–ä»£ç†IP");
 
         JSaveIPPathPanel.add(JTFSavePlainIPs, BorderLayout.WEST);
         JSaveIPPathPanel.add(JBSaveIPOpenFile, BorderLayout.EAST);
@@ -164,11 +164,11 @@ public class JWindowsFrame extends JFrame {
         JScroB = new JScrollBar();
         JScroB.setVisible(true);
 
-        JLRunInfo = new JLabel("Ïà¹ØĞÅÏ¢");
+        JLRunInfo = new JLabel("ç›¸å…³ä¿¡æ¯");
 
         JTARunInfo = new JTextArea();
         // JTARunInfo.setBounds(300, 250, 600, 200);
-        JTARunInfo.setEditable(false);// ÉèÖÃÎÄ±¾¿òÊÇ·ñ¿ÉÒÔ±à¼­
+        JTARunInfo.setEditable(false);// è®¾ç½®æ–‡æœ¬æ¡†æ˜¯å¦å¯ä»¥ç¼–è¾‘
 
         JSPRunInfo = new JScrollPane(JTARunInfo);
         JSPRunInfo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -181,12 +181,12 @@ public class JWindowsFrame extends JFrame {
         JWordsPanel = new JPanel();
         JWordsPanel.setLayout(new BorderLayout());
 
-        JLSearchWords = new JLabel("ÊäÈëËÑË÷»°Ìâ£¬¹Ø¼ü´ÊÓÃ¿Õ¸ñ»ò»»ĞĞ·Ö¿ª");
-        // »°ÌâÖ®¼äÓÃ¿Õ¸ñ·Ö¿ª£¬ÈôÒ»¸ö»°ÌâÓĞ¶à¸ö¹Ø¼ü´Ê£¬´ÊÖ®¼ä¼Ó¡°%20¡±
+        JLSearchWords = new JLabel("è¾“å…¥æœç´¢è¯é¢˜ï¼Œå…³é”®è¯ç”¨ç©ºæ ¼æˆ–æ¢è¡Œåˆ†å¼€");
+        // è¯é¢˜ä¹‹é—´ç”¨ç©ºæ ¼åˆ†å¼€ï¼Œè‹¥ä¸€ä¸ªè¯é¢˜æœ‰å¤šä¸ªå…³é”®è¯ï¼Œè¯ä¹‹é—´åŠ â€œ%20â€
 
         JTASearchWords = new JTextArea(8, 1);
         JTASearchWords.setEditable(true);
-        JTASearchWords.setText("ÉãÓ°");
+        JTASearchWords.setText("æ‘„å½±");
 
         JSPSearchWords = new JScrollPane(JTASearchWords);
         JSPSearchWords.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -204,7 +204,7 @@ public class JWindowsFrame extends JFrame {
         JSaveHTMLPathPanel = new JPanel();
         JSaveHTMLPathPanel.setLayout(new BorderLayout());
 
-        JLSaveHTMLPath = new JLabel("±£´æËùÓĞHTMLÎÄ¼şµÄÂ·¾¶£¨*²»ÒªÒÔĞ±¸Ü½áÎ²*£©");
+        JLSaveHTMLPath = new JLabel("ä¿å­˜æ‰€æœ‰HTMLæ–‡ä»¶çš„è·¯å¾„ï¼ˆ*ä¸è¦ä»¥æ–œæ ç»“å°¾*ï¼‰");
 
         JTFSaveHTMLPath = new JTextField(PATH_FIELD_LENGTH);
         JTFSaveHTMLPath.setEditable(true);
@@ -215,7 +215,7 @@ public class JWindowsFrame extends JFrame {
         JSaveHTMLPathPanel.add(JTFSaveHTMLPath, BorderLayout.WEST);
         JSaveHTMLPathPanel.add(JBSaveHTMLOpenFile, BorderLayout.EAST);
 
-        JLSaveTXTPath = new JLabel("±£´æËùÓĞTXTÎÄ¼şµÄÂ·¾¶£¨*²»ÒªÒÔĞ±¸Ü½áÎ²*£©");
+        JLSaveTXTPath = new JLabel("ä¿å­˜æ‰€æœ‰TXTæ–‡ä»¶çš„è·¯å¾„ï¼ˆ*ä¸è¦ä»¥æ–œæ ç»“å°¾*ï¼‰");
 
         JSaveTXTPathPanel = new JPanel();
         JSaveTXTPathPanel.setLayout(new BorderLayout());
@@ -229,7 +229,7 @@ public class JWindowsFrame extends JFrame {
         JSaveTXTPathPanel.add(JTFSaveTXTPath, BorderLayout.WEST);
         JSaveTXTPathPanel.add(JBSaveTXTOpenFile, BorderLayout.EAST);
 
-        JLSaveXMLPath = new JLabel("±£´æËùÓĞXMLÎÄ¼şµÄÂ·¾¶£¨*²»ÒªÒÔĞ±¸Ü½áÎ²*£©");
+        JLSaveXMLPath = new JLabel("ä¿å­˜æ‰€æœ‰XMLæ–‡ä»¶çš„è·¯å¾„ï¼ˆ*ä¸è¦ä»¥æ–œæ ç»“å°¾*ï¼‰");
 
         JSaveXMLPathPanel = new JPanel();
         JSaveXMLPathPanel.setLayout(new BorderLayout());
@@ -243,7 +243,7 @@ public class JWindowsFrame extends JFrame {
         JSaveXMLPathPanel.add(JTFSaveXMLPath, BorderLayout.WEST);
         JSaveXMLPathPanel.add(JBSaveXMLOpenFile, BorderLayout.EAST);
 
-        JLPlainIPs = new JLabel("¿ÉÓÃ´úÀíIPµÄÂ·¾¶(plainIPs.txtÎÄ¼ş)");
+        JLPlainIPs = new JLabel("å¯ç”¨ä»£ç†IPçš„è·¯å¾„(plainIPs.txtæ–‡ä»¶)");
 
         JSaveIPPathPanel = new JPanel();
         JSaveIPPathPanel.setLayout(new BorderLayout());
@@ -260,7 +260,7 @@ public class JWindowsFrame extends JFrame {
         JPagesPanel = new JPanel();
         JPagesPanel.setLayout(new BorderLayout());
 
-        JLpages = new JLabel("ÉèÖÃÃ¿¸ö¹Ø¼ü´Ê»ñÈ¡Ò³Êı(1~50£¬Ä¬ÈÏ50): ");
+        JLpages = new JLabel("è®¾ç½®æ¯ä¸ªå…³é”®è¯è·å–é¡µæ•°(1~50ï¼Œé»˜è®¤50): ");
 
         JTFPages = new JTextField(PATH_FIELD_LENGTH / 10);
         JTFPages.setEditable(true);
@@ -280,7 +280,7 @@ public class JWindowsFrame extends JFrame {
         //JPathPanel.add(JLpages);
         JPathPanel.add(JPagesPanel);
 
-        JBCrawl = new JButton("ÅÀÈ¡Î¢²©");
+        JBCrawl = new JButton("çˆ¬å–å¾®åš");
 
         JButtonPanel = new JPanel();
         JButtonPanel.setLayout(new FlowLayout());
@@ -313,17 +313,17 @@ public class JWindowsFrame extends JFrame {
                 jDialog.setVisible(true);
                 jDialog.setResizable(false);
 
-                jDialog.setTitle("×÷ÕßĞÅÏ¢");
+                jDialog.setTitle("ä½œè€…ä¿¡æ¯");
 
                 jDialog.setBounds((SCREEN_WIDTH - AUTHOR_WIDTH) / 2, (SCREEN_HEIGHT - AUTHOR_HEIGHT) / 2, AUTHOR_WIDTH, AUTHOR_HEIGHT);
                 JTextArea jta = new JTextArea();
                 jta.setBackground(getBackground());
-                jta.setText("           Èí¼ş×÷Õß£ºÀîÑ©É½" + "\r\n"
-                        + "\r\n  ±¾Èí¼şÓÉ×÷Õß±¾ÈË¶ÀÁ¢¿ª·¢£¬Ö¼ÔÚÌá¹©Ò»¸ö"
-                        + "\r\n  ×¥È¡Î¢²©µÄ±ãÀû¹¤¾ß¡£¡¾ÇëÎğÓÃÓÚÉÌÒµĞĞÎª¡¿" + "\r\n"
-                        + "\r\n  ±¾Èí¼ş¿ªÔ´£¬ËùÓĞ´úÂë¼û×÷ÕßCSDN²©¿Í:"
+                jta.setText("           è½¯ä»¶ä½œè€…ï¼šæé›ªå±±" + "\r\n"
+                        + "\r\n  æœ¬è½¯ä»¶ç”±ä½œè€…æœ¬äººç‹¬ç«‹å¼€å‘ï¼Œæ—¨åœ¨æä¾›ä¸€ä¸ª"
+                        + "\r\n  æŠ“å–å¾®åšçš„ä¾¿åˆ©å·¥å…·ã€‚ã€è¯·å‹¿ç”¨äºå•†ä¸šè¡Œä¸ºã€‘" + "\r\n"
+                        + "\r\n  æœ¬è½¯ä»¶å¼€æºï¼Œæ‰€æœ‰ä»£ç è§ä½œè€…CSDNåšå®¢:"
                         + "\r\n  http://blog.csdn.net/codingmirai/" + "\r\n"
-                        + "\r\n  ÈçÓĞÒÉÎÊ£¬»¶Ó­½»Á÷£¬ÎÒµÄÓÊÏäµØÖ·£º" + ""
+                        + "\r\n  å¦‚æœ‰ç–‘é—®ï¼Œæ¬¢è¿äº¤æµï¼Œæˆ‘çš„é‚®ç®±åœ°å€ï¼š" + ""
                         + "\r\n        hainanlxs@gmail.com" + "\r\n"
                         + "\r\n    LI XUESHAN, All Rights Reserved");
                 jta.setEditable(false);
@@ -338,19 +338,19 @@ public class JWindowsFrame extends JFrame {
                 JDialog jDialog = new JDialog();
                 jDialog.setVisible(true);
 
-                jDialog.setTitle("Ê¹ÓÃËµÃ÷");
+                jDialog.setTitle("ä½¿ç”¨è¯´æ˜");
                 jDialog.setResizable(false);
 
                 jDialog.setBounds((SCREEN_WIDTH - INSTRUCTION_WIDTH) / 2, (SCREEN_HEIGHT - INSTRUCTION_HEIGHT) / 2, INSTRUCTION_WIDTH, INSTRUCTION_HEIGHT);
                 JTextArea jta = new JTextArea();
                 jta.setBackground(getBackground());
                 jta.setText("               WeiboCrawler Version: 2.2"
-                        + "\r\n  ´ËÈí¼şÊÇ»ùÓÚ´úÀíIPµÄĞÂÀËÎ¢²©Êı¾İ»ñÈ¡Æ÷£¬ÓĞĞ§¶ã±ÜÁËĞÂÀË"
-                        + "\r\nÎ¢²©µÄ·´ÅÀ³æ»úÖÆ£¬ÄÜ¹»È«×Ô¶¯Á¬Ğø»ñÈ¡Ïà¹ØÎ¢²©Êı¾İ¡£" + "\r\n  Èí¼ş·ÖÎªÁ½¸öÖ÷Òª¹¦ÄÜ£º"
-                        + "\r\n1. »ñÈ¡ÓĞĞ§´úÀíIP£»" + "\r\n2. ¸ù¾İ¹Ø¼ü´ÊÅÀÈ¡Ïà¹ØÎ¢²©Êı¾İ¡£"
-                        + "\r\n  " + "\r\n  Ğ´²»¶¯ÁË£¬Èí¼ş¹¦ÄÜºÜ¼òµ¥£¬¿´¿´¾Í¶®ÓÃÁË£¬Èç¹û»¹ÓĞÒÉÎÊ£¬"
-                        + "\r\nµãÒ»ÏÂ²Ëµ¥ÀïµÄ¡°¹ØÓÚ¡±¡ª¡ª>¡°×÷ÕßĞÅÏ¢¡±£¬ÀïÃæÓĞÎÒµÄ²©¿Í"
-                        + "\r\nµØÖ·¡£²©¿ÍÎÄÕÂÀïÓĞÏêÏ¸ËµÃ÷¡£");
+                        + "\r\n  æ­¤è½¯ä»¶æ˜¯åŸºäºä»£ç†IPçš„æ–°æµªå¾®åšæ•°æ®è·å–å™¨ï¼Œæœ‰æ•ˆèº²é¿äº†æ–°æµª"
+                        + "\r\nå¾®åšçš„åçˆ¬è™«æœºåˆ¶ï¼Œèƒ½å¤Ÿå…¨è‡ªåŠ¨è¿ç»­è·å–ç›¸å…³å¾®åšæ•°æ®ã€‚" + "\r\n  è½¯ä»¶åˆ†ä¸ºä¸¤ä¸ªä¸»è¦åŠŸèƒ½ï¼š"
+                        + "\r\n1. è·å–æœ‰æ•ˆä»£ç†IPï¼›" + "\r\n2. æ ¹æ®å…³é”®è¯çˆ¬å–ç›¸å…³å¾®åšæ•°æ®ã€‚"
+                        + "\r\n  " + "\r\n  å†™ä¸åŠ¨äº†ï¼Œè½¯ä»¶åŠŸèƒ½å¾ˆç®€å•ï¼Œçœ‹çœ‹å°±æ‡‚ç”¨äº†ï¼Œå¦‚æœè¿˜æœ‰ç–‘é—®ï¼Œ"
+                        + "\r\nç‚¹ä¸€ä¸‹èœå•é‡Œçš„â€œå…³äºâ€â€”â€”>â€œä½œè€…ä¿¡æ¯â€ï¼Œé‡Œé¢æœ‰æˆ‘çš„åšå®¢"
+                        + "\r\nåœ°å€ã€‚åšå®¢æ–‡ç« é‡Œæœ‰è¯¦ç»†è¯´æ˜ã€‚");
                 jta.setEditable(false);
                 jDialog.add(jta);
             }
@@ -428,7 +428,7 @@ public class JWindowsFrame extends JFrame {
                 String savePlainIPs = JTFSavePlainIPs.getText();
 
                 if (savePlainIPs.equals("")) {
-                    JTARunInfo.append("path error\r\nÇëÊäÈë±£´æIPµÄÂ·¾¶\r\n");
+                    JTARunInfo.append("path error\r\nè¯·è¾“å…¥ä¿å­˜IPçš„è·¯å¾„\r\n");
                 } else {
                     final String plainIPsPath = savePlainIPs + "\\plainIPs.txt";
 
@@ -436,24 +436,24 @@ public class JWindowsFrame extends JFrame {
                         @Override
                         public void run() {
                             try {
-                                // ¼ÆÊ±¿ªÊ¼
+                                // è®¡æ—¶å¼€å§‹
                                 long t1 = System.currentTimeMillis();
 
-                                // »ñÈ¡ËùÓĞ¿ÉÓÃIP
+                                // è·å–æ‰€æœ‰å¯ç”¨IP
                                 List<IPBean> ips = XiciEntrance.getIPBeanList(1);
 
-                                // Êä³öËùÓĞ¿ÉÓÃIPµ½½çÃæ
-                                JTARunInfo.append("×îÖÕµÃµ½ " + ips.size() + "¸ö¿ÉÓÃ´úÀíIPÈçÏÂ£º" + "\r\n");
+                                // è¾“å‡ºæ‰€æœ‰å¯ç”¨IPåˆ°ç•Œé¢
+                                JTARunInfo.append("æœ€ç»ˆå¾—åˆ° " + ips.size() + "ä¸ªå¯ç”¨ä»£ç†IPå¦‚ä¸‹ï¼š" + "\r\n");
                                 for (int i = 0; i < ips.size(); i++) {
                                     JTARunInfo.append(ips.get(i).getIp() + ":" + ips.get(i).getPort() + "\r\n");
                                 }
 
-                                // Êä³öÓÃÊ±
+                                // è¾“å‡ºç”¨æ—¶
                                 long t2 = System.currentTimeMillis();
-                                System.out.println("»ñÈ¡¿ÉÓÃIPºÄÊ±" + (double) (t2 - t1) / 60000 + "·ÖÖÓ");
-                                JTARunInfo.append("»ñÈ¡¿ÉÓÃIPºÄÊ±" + (double) (t2 - t1) / 60000 + "·ÖÖÓ" + "\r\n");
+                                System.out.println("è·å–å¯ç”¨IPè€—æ—¶" + (double) (t2 - t1) / 60000 + "åˆ†é’Ÿ");
+                                JTARunInfo.append("è·å–å¯ç”¨IPè€—æ—¶" + (double) (t2 - t1) / 60000 + "åˆ†é’Ÿ" + "\r\n");
 
-                                // ´æ·Å¿ÉÓÃIPµ½ÎÄ¼şÖĞ
+                                // å­˜æ”¾å¯ç”¨IPåˆ°æ–‡ä»¶ä¸­
                                 FileOperation.write2txt(ips, plainIPsPath);
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -483,34 +483,34 @@ public class JWindowsFrame extends JFrame {
                         switch (i) {
                             case 0:
                                 ifCrawlFlag++;
-                                System.out.println("error\r\nÇëÊäÈëËÑË÷¹Ø¼ü´Ê");
-                                JTARunInfo.append("error\r\nÇëÊäÈëËÑË÷¹Ø¼ü´Ê\r\n");
+                                System.out.println("error\r\nè¯·è¾“å…¥æœç´¢å…³é”®è¯");
+                                JTARunInfo.append("error\r\nè¯·è¾“å…¥æœç´¢å…³é”®è¯\r\n");
                                 break;
                             case 1:
                                 ifCrawlFlag++;
-                                System.out.println("error\r\nÇëÊäÈë±£´æhtmlÎÄ¼şÂ·¾¶");
+                                System.out.println("error\r\nè¯·è¾“å…¥ä¿å­˜htmlæ–‡ä»¶è·¯å¾„");
                                 JTARunInfo
-                                        .append("error\r\nÇëÊäÈë±£´æhtmlÎÄ¼şÂ·¾¶\r\n");
+                                        .append("error\r\nè¯·è¾“å…¥ä¿å­˜htmlæ–‡ä»¶è·¯å¾„\r\n");
                                 break;
                             case 2:
                                 ifCrawlFlag++;
-                                System.out.println("error\r\nÇëÊäÈë±£´ætxtÎÄ¼şÂ·¾¶");
-                                JTARunInfo.append("error\r\nÇëÊäÈë±£´ætxtÎÄ¼şÂ·¾¶\r\n");
+                                System.out.println("error\r\nè¯·è¾“å…¥ä¿å­˜txtæ–‡ä»¶è·¯å¾„");
+                                JTARunInfo.append("error\r\nè¯·è¾“å…¥ä¿å­˜txtæ–‡ä»¶è·¯å¾„\r\n");
                                 break;
                             case 3:
                                 ifCrawlFlag++;
-                                System.out.println("error\r\nÇëÊäÈë±£´æxmlÎÄ¼şÂ·¾¶");
-                                JTARunInfo.append("error\r\nÇëÊäÈë±£´æxmlÎÄ¼şÂ·¾¶\r\n");
+                                System.out.println("error\r\nè¯·è¾“å…¥ä¿å­˜xmlæ–‡ä»¶è·¯å¾„");
+                                JTARunInfo.append("error\r\nè¯·è¾“å…¥ä¿å­˜xmlæ–‡ä»¶è·¯å¾„\r\n");
                                 break;
                             case 4:
                                 ifCrawlFlag++;
-                                System.out.println("error\r\nÇëÊäÈë¿ÉÓÃ´úÀíIPÎÄ¼şÂ·¾¶(plainIPs.txt)");
-                                JTARunInfo.append("error\r\nÇëÊäÈë¿ÉÓÃ´úÀíIPÎÄ¼şÂ·¾¶(plainIPs.txt)\r\n");
+                                System.out.println("error\r\nè¯·è¾“å…¥å¯ç”¨ä»£ç†IPæ–‡ä»¶è·¯å¾„(plainIPs.txt)");
+                                JTARunInfo.append("error\r\nè¯·è¾“å…¥å¯ç”¨ä»£ç†IPæ–‡ä»¶è·¯å¾„(plainIPs.txt)\r\n");
                                 break;
                             case 5:
                                 //ifCrawlFlag++;
-                                System.out.println("warning\r\nÎ´Ö¸¶¨»ñÈ¡Ò³Êı£¬Ä¬ÈÏ½«»ñÈ¡×î´óÒ³Êı50Ò³");
-                                JTARunInfo.append("warning\r\nÎ´Ö¸¶¨»ñÈ¡Ò³Êı£¬Ä¬ÈÏ½«»ñÈ¡×î´óÒ³Êı50Ò³\r\n");
+                                System.out.println("warning\r\næœªæŒ‡å®šè·å–é¡µæ•°ï¼Œé»˜è®¤å°†è·å–æœ€å¤§é¡µæ•°50é¡µ");
+                                JTARunInfo.append("warning\r\næœªæŒ‡å®šè·å–é¡µæ•°ï¼Œé»˜è®¤å°†è·å–æœ€å¤§é¡µæ•°50é¡µ\r\n");
                                 crawlerArgs[5] = "50";
                                 break;
                         }

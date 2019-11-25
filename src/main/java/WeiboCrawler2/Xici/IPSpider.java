@@ -15,7 +15,7 @@ public class IPSpider {
 
     private List<IPBean> ipList = new ArrayList<IPBean>();
 
-    // ÅÀÈ¡µÄÒ³Êı----Ã¿Ò³°üº¬100¸öIP
+    // çˆ¬å–çš„é¡µæ•°----æ¯é¡µåŒ…å«100ä¸ªIP
     private int pages = 5;
 
 

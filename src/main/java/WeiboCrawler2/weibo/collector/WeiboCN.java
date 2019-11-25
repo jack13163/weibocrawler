@@ -4,6 +4,7 @@ package WeiboCrawler2.weibo.collector;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,18 +14,18 @@ import java.awt.image.BufferedImage;
 import java.util.Set;
 
 /**
- * ÀûÓÃSelenium»ñÈ¡µÇÂ½ĞÂÀËÎ¢²©weibo.cnµÄcookie
+ * åˆ©ç”¨Seleniumè·å–ç™»é™†æ–°æµªå¾®åšweibo.cnçš„cookie
  *
  * @author hu
  */
 public class WeiboCN {
 
     /**
-     * »ñÈ¡ĞÂÀËÎ¢²©µÄcookie£¬Õâ¸ö·½·¨Õë¶Ôweibo.cnÓĞĞ§£¬¶Ôweibo.comÎŞĞ§ weibo.cnÒÔÃ÷ÎÄĞÎÊ½´«ÊäÊı¾İ£¬ÇëÊ¹ÓÃĞ¡ºÅ
-     * ÀûÓÃÊÖ»ú¶ËµÇÂ½API
+     * è·å–æ–°æµªå¾®åšçš„cookieï¼Œè¿™ä¸ªæ–¹æ³•é’ˆå¯¹weibo.cnæœ‰æ•ˆï¼Œå¯¹weibo.comæ— æ•ˆ weibo.cnä»¥æ˜æ–‡å½¢å¼ä¼ è¾“æ•°æ®ï¼Œè¯·ä½¿ç”¨å°å·
+     * åˆ©ç”¨æ‰‹æœºç«¯ç™»é™†API
      *
-     * @param username ĞÂÀËÎ¢²©ÓÃ»§Ãû
-     * @param password ĞÂÀËÎ¢²©ÃÜÂë
+     * @param username æ–°æµªå¾®åšç”¨æˆ·å
+     * @param password æ–°æµªå¾®åšå¯†ç 
      * @return
      * @throws Exception
      */
@@ -35,12 +36,14 @@ public class WeiboCN {
 
         driver.get("https://passport.weibo.cn/signin/login");
 
-        WebElement mobile = driver.findElementByCssSelector("input[id=loginName]");
-        mobile.sendKeys(username);
-        WebElement pass = driver.findElementByCssSelector("input[id=loginPassword]");
-        pass.sendKeys(password);
-        WebElement submit = driver.findElementByCssSelector("a#loginAction");
-        submit.click();
+        Actions actions = new Actions(driver);
+        WebElement mobile = driver.findElementByCssSelector("#loginName");
+        actions.sendKeys(mobile, username);
+        WebElement pass = driver.findElementByCssSelector("#loginPassword");
+        actions.sendKeys(pass, password);
+        WebElement submit = driver.findElementByCssSelector("#loginAction");
+        actions.click(submit);
+
         String result = concatCookie(driver);
         System.out.println("Get Cookie: " + result);
         driver.close();
@@ -75,7 +78,7 @@ public class WeiboCN {
         }
 
         public String getUserInput() {
-            frame = new JFrame("ÊäÈëÑéÖ¤Âë");
+            frame = new JFrame("è¾“å…¥éªŒè¯ç ");
             final int imgWidth = img.getWidth();
             final int imgHeight = img.getHeight();
             int width = imgWidth * 2 + inputWidth * 2;
@@ -98,7 +101,7 @@ public class WeiboCN {
             input = new JTextField(6);
             input.setBounds(imgWidth * 2, 0, inputWidth, imgHeight * 2);
             panel.add(input);
-            JButton btn = new JButton("µÇÂ¼");
+            JButton btn = new JButton("ç™»å½•");
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

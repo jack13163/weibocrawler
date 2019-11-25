@@ -17,7 +17,7 @@ import org.jsoup.select.Elements;
 import java.util.List;
 
 /**
- * ÀûÓÃWebCollector»ñÈ¡µÄcookieÅÀÈ¡ĞÂÀËÎ¢²©²¢³éÈ¡Êı¾İ
+ * åˆ©ç”¨WebCollectorè·å–çš„cookieçˆ¬å–æ–°æµªå¾®åšå¹¶æŠ½å–æ•°æ®
  */
 public class WeiboLogin extends BreadthCrawler {
     private String cookie;
@@ -29,12 +29,12 @@ public class WeiboLogin extends BreadthCrawler {
     public WeiboLogin(String crawlPath, boolean autoParse) throws Exception {
         super(crawlPath, autoParse);
         cookie = WeiboCN.getSinaCookie(userName, pass);
-        // »ñÈ¡ËùÓĞ¿ÉÓÃIP
+        // è·å–æ‰€æœ‰å¯ç”¨IP
         this.ips = XiciEntrance.getIPBeanList(1);
     }
 
 //    /**
-//     * ¾ßÌåÖ´ĞĞÅÀ³æ²Ù×÷
+//     * å…·ä½“æ‰§è¡Œçˆ¬è™«æ“ä½œ
 //     *
 //     * @param crawlDatum
 //     * @return
@@ -42,7 +42,7 @@ public class WeiboLogin extends BreadthCrawler {
 //     */
 //    @Override
 //    public Page getResponse(CrawlDatum crawlDatum) throws Exception {
-//        // »ñÈ¡¿ÉÓÃIP
+//        // è·å–å¯ç”¨IP
 //        int ip = -1;
 //        for (int i = 0; i < ips.size(); i++) {
 //            if (XiciProxyIP.isValid(ips.get(i))) {
@@ -51,22 +51,22 @@ public class WeiboLogin extends BreadthCrawler {
 //            }
 //        }
 //        if (ip == -1) {
-//            throw new Exception("Ã»ÓĞ¿ÉÓÃµÄ´úÀíIP");
+//            throw new Exception("æ²¡æœ‰å¯ç”¨çš„ä»£ç†IP");
 //        }
 //
-//        // Ê¹ÓÃHtmlUnit¼ÓÔØjs
+//        // ä½¿ç”¨HtmlUnitåŠ è½½js
 //        WebClient webClient = new WebClient();
 //
-//        //ÉèÖÃ´úÀí
+//        //è®¾ç½®ä»£ç†
 //        ProxyConfig proxyConfig = webClient.getOptions().getProxyConfig();
 //        proxyConfig.setProxyHost(ips.get(ip).getIp());
 //        proxyConfig.setProxyPort(Integer.valueOf(ips.get(ip).getPort()));
 //
-//        // ÉèÖÃcookies
+//        // è®¾ç½®cookies
 //        DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
 //        credentialsProvider.addCredentials(userName, pass);
 //
-//        //ÉèÖÃ²ÎÊı
+//        //è®¾ç½®å‚æ•°
 //        webClient.getOptions().setCssEnabled(false);
 //        webClient.getOptions().setJavaScriptEnabled(false);
 //        webClient.getOptions().setThrowExceptionOnScriptError(false);
@@ -80,7 +80,7 @@ public class WeiboLogin extends BreadthCrawler {
 
     @Override
     public void execute(CrawlDatum datum, CrawlDatums next) throws Exception {
-        // »ñÈ¡¿ÉÓÃIP
+        // è·å–å¯ç”¨IP
         int ip = -1;
         for (int i = 0; i < ips.size(); i++) {
             if (XiciProxyIP.isValid(ips.get(i))) {
@@ -89,22 +89,22 @@ public class WeiboLogin extends BreadthCrawler {
             }
         }
         if (ip == -1) {
-            throw new Exception("Ã»ÓĞ¿ÉÓÃµÄ´úÀíIP");
+            throw new Exception("æ²¡æœ‰å¯ç”¨çš„ä»£ç†IP");
         }
 
-        // Ê¹ÓÃHtmlUnit¼ÓÔØjs
+        // ä½¿ç”¨HtmlUnitåŠ è½½js
         WebClient webClient = new WebClient();
 
-        //ÉèÖÃ´úÀí
+        //è®¾ç½®ä»£ç†
         ProxyConfig proxyConfig = webClient.getOptions().getProxyConfig();
         proxyConfig.setProxyHost(ips.get(ip).getIp());
         proxyConfig.setProxyPort(Integer.valueOf(ips.get(ip).getPort()));
 
-        // ÉèÖÃcookies
+        // è®¾ç½®cookies
         DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
         credentialsProvider.addCredentials(userName, pass);
 
-        //ÉèÖÃ²ÎÊı
+        //è®¾ç½®å‚æ•°
         webClient.getOptions().setCssEnabled(false);
         webClient.getOptions().setJavaScriptEnabled(false);
         webClient.getOptions().setThrowExceptionOnScriptError(false);
@@ -116,22 +116,22 @@ public class WeiboLogin extends BreadthCrawler {
 
     public void visit(Page page, CrawlDatums next) {
         int pageNum = Integer.valueOf(page.meta("pageNum"));
-        /*³éÈ¡Î¢²©*/
+        /*æŠ½å–å¾®åš*/
         Elements weibos = page.select("#app");
         for (Element weibo : weibos) {
-            System.out.println("µÚ" + pageNum + "Ò³\t" + weibo.text());
+            System.out.println("ç¬¬" + pageNum + "é¡µ\t" + weibo.text());
         }
     }
 
     public static void main(String[] args) throws Exception {
-        // ÉèÖÃwebcollector²ÎÊı
-        WeiboLogin crawler = new WeiboLogin("Data/env", false);// ÍøÒ³¡¢Í¼Æ¬¡¢ÎÄ¼ş±»´æ´¢ÔÚdownloadÎÄ¼ş¼ĞÖĞ
+        // è®¾ç½®webcollectorå‚æ•°
+        WeiboLogin crawler = new WeiboLogin("Data/env", false);// ç½‘é¡µã€å›¾ç‰‡ã€æ–‡ä»¶è¢«å­˜å‚¨åœ¨downloadæ–‡ä»¶å¤¹ä¸­
         crawler.setThreads(3);
         crawler.addRegex("http://m.weibo.cn/.*");
 
-        /*¶ÔÄ³ÈËÎ¢²©Ç°5Ò³½øĞĞÅÀÈ¡*/
+        /*å¯¹æŸäººå¾®åšå‰5é¡µè¿›è¡Œçˆ¬å–*/
         for (int i = 1; i <= 5; i++) {
-            // Ìí¼ÓÅÀÈ¡ÖÖ×Ó,Ò²¾ÍÊÇĞèÒªÅÀÈ¡µÄÍøÕ¾µØÖ·,ÒÔ¼°ÅÀÈ¡Éî¶È
+            // æ·»åŠ çˆ¬å–ç§å­,ä¹Ÿå°±æ˜¯éœ€è¦çˆ¬å–çš„ç½‘ç«™åœ°å€,ä»¥åŠçˆ¬å–æ·±åº¦
             crawler.addSeed(new CrawlDatum("https://m.weibo.cn/search?containerid=100103type%3D1%26q%3D%E6%91%84%E5%BD%B1&page=" + i).meta("pageNum", i + ""));
         }
         crawler.start(1);

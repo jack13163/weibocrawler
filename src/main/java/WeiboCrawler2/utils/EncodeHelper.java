@@ -1,13 +1,13 @@
 package WeiboCrawler2.utils;
 
 public class EncodeHelper {
-    // ASCII¡¢ISO-8859-1¡¢GB2312¡¢GBK¡¢UTF-8¡¢UTF-16
+    // ASCIIã€ISO-8859-1ã€GB2312ã€GBKã€UTF-8ã€UTF-16
     public static String ENCODING_UTF8 = "UTF-8";
     public static String ENCODING_GBK = "GBK";
     public static String ENCODING_GB2312 = "GB2312";
 
     /**
-     * ÅĞ¶Ï×Ö·û´®µÄ±àÂë¸ñÊ½
+     * åˆ¤æ–­å­—ç¬¦ä¸²çš„ç¼–ç æ ¼å¼
      *
      * @param str
      * @return

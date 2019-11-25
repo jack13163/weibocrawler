@@ -12,7 +12,7 @@ public class XiciProxyIP {
 
     private static final String MY_IP_API = "https://www.ipip.net/ip.html";
 
-    // »ñÈ¡µ±Ç°ipµØÖ·£¬ÅĞ¶ÏÊÇ·ñ´úÀí³É¹¦
+    // è·å–å½“å‰ipåœ°å€ï¼Œåˆ¤æ–­æ˜¯å¦ä»£ç†æˆåŠŸ
     public static String getMyIp() {
         try {
             String html = HttpUtils.getResponseContent(MY_IP_API);
@@ -33,7 +33,7 @@ public class XiciProxyIP {
     }
 
     /**
-     * ¼ì²â´úÀíipÊÇ·ñÓĞĞ§
+     * æ£€æµ‹ä»£ç†ipæ˜¯å¦æœ‰æ•ˆ
      *
      * @param ipBean
      * @return
@@ -48,8 +48,8 @@ public class XiciProxyIP {
             System.out.println(code);
             return code == 200;
         } catch (IOException e) {
-            // ÎŞ·¨Í¨¹ı´úÀí·şÎñÆ÷·ÃÎÊ°Ù¶È£¬ÔòËµÃ÷´úÀíIPÎŞĞ§
-            System.out.println("IPÎŞĞ§");
+            // æ— æ³•é€šè¿‡ä»£ç†æœåŠ¡å™¨è®¿é—®ç™¾åº¦ï¼Œåˆ™è¯´æ˜ä»£ç†IPæ— æ•ˆ
+            System.out.println("IPæ— æ•ˆ");
         }
         return false;
     }

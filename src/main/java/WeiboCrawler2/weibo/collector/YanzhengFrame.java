@@ -19,7 +19,7 @@ public class YanzhengFrame {
     }
 
     public String getUserInput() {
-        frame = new JFrame("ÊäÈëÑéÖ¤Âë");
+        frame = new JFrame("è¾“å…¥éªŒè¯ç ");
         final int imgWidth = img.getWidth();
         final int imgHeight = img.getHeight();
         int width = imgWidth * 2 + inputWidth * 2;
@@ -42,7 +42,7 @@ public class YanzhengFrame {
         input = new JTextField(6);
         input.setBounds(imgWidth * 2, 0, inputWidth, imgHeight * 2);
         panel.add(input);
-        JButton btn = new JButton("µÇÂ¼");
+        JButton btn = new JButton("ç™»å½•");
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
