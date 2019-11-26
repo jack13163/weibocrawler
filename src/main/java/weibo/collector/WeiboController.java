@@ -70,6 +70,7 @@ public class WeiboController extends BreadthCrawler {
 
             Matcher matcher2 = Pattern.compile("\\{.+?\"html\":\"(.+?)\"\\}").matcher(detailResult);
             List<String> bowens = new ArrayList<String>();
+
             while (matcher2.find()) {
                 String bowen = matcher2.group(1).replaceAll("\\\\", "");
 
@@ -80,9 +81,13 @@ public class WeiboController extends BreadthCrawler {
                     String imgUrl = matcher3.group(1);
                     // 过滤用户头像
                     if (imgUrl.startsWith("//")) {
-                        imgUrl = "http:" + imgUrl;
-                        System.out.println(url + " : " + imgUrl);
-                        pics.add(imgUrl);
+                        // 判断图片是否为缩略图，用于找到对应的原图
+                        Matcher matcher4 = Pattern.compile("//wx[1-4].sinaimg.cn/.+?/(.*)").matcher(imgUrl);
+                        if(matcher4.find()){
+                            imgUrl = "https://wx2.sinaimg.cn/mw690/" + matcher4.group(1);
+                            System.out.println(imgUrl);
+                            pics.add(imgUrl);
+                        }
                     }
                 }
 
