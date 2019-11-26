@@ -1,4 +1,4 @@
-package WeiboCrawler2.weibo.client;
+package WeiboCrawler2.weibo.ui;
 
 import java.awt.Desktop;
 import java.awt.Toolkit;
@@ -497,8 +497,7 @@ public class WeiboCrawler3 {
         return today;
     }
 
-    public static void main(String[] args) throws ClientProtocolException,
-            URISyntaxException, IOException, InterruptedException {
+    public static void main(String[] args) throws ClientProtocolException, URISyntaxException, IOException, InterruptedException {
         long t1 = System.currentTimeMillis();
 
         WeiboCrawler3 crawler = new WeiboCrawler3();
@@ -540,7 +539,6 @@ public class WeiboCrawler3 {
                     if (!allWeibos.contains(oneHTMLWeibos.get(j))) {
                         allWeibos.add(oneHTMLWeibos.get(j));
                     }
-
                 }
             }
             /**

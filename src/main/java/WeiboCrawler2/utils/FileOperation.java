@@ -1,15 +1,16 @@
 package WeiboCrawler2.utils;
 
 import WeiboCrawler2.Xici.IPBean;
+import com.gargoylesoftware.htmlunit.util.Cookie;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.io.*;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class FileOperation {
 
     public static Vector<String> getLines(String path) throws IOException {
-        // TODO Auto-generated method stub
         Vector<String> lines = new Vector<String>();
         File f = new File(path);// "d:/data/weibo/validIPs.txt"
         FileReader fr = new FileReader(f);
@@ -23,9 +24,7 @@ public class FileOperation {
         return lines;
     }
 
-    public static void write2txt(Vector<String> vector, String savePath)
-            throws IOException {
-        // TODO Auto-generated method stub
+    public static void write2txt(Vector<String> vector, String savePath) throws IOException {
         File f = new File(savePath);//
         FileWriter fw = new FileWriter(f);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -37,7 +36,7 @@ public class FileOperation {
     }
 
     /**
-     * ���IP������
+     * 将IP写入到文件
      *
      * @param ips
      * @param savePath
@@ -54,7 +53,7 @@ public class FileOperation {
     }
 
     /**
-     * ��Stringд�������ļ�
+     * 将字符串写入到指定的文件中
      *
      * @param s
      * @param savePath
@@ -69,7 +68,7 @@ public class FileOperation {
     }
 
     /**
-     * ��html�ļ��õ�΢��
+     * 读取文本
      *
      * @param htmlPath
      * @return
@@ -78,27 +77,27 @@ public class FileOperation {
     public static String html2String(String htmlPath) throws IOException {
         String html = "";
         File f = new File(htmlPath);
-        FileReader fr = new FileReader(f);
-        BufferedReader br = new BufferedReader(fr);
-        String s;
-        while ((s = br.readLine()) != null) {
-            html += s;
+        if (f.exists()) {
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String s;
+            while ((s = br.readLine()) != null) {
+                html += s;
+            }
+            br.close();
         }
-        br.close();
 
         return html;
     }
 
     /**
-     * ��ĳ�ؼ�����������΢��ȫд���ļ���ȥ �����д����txt��ʽ
+     * 写入文件
      *
      * @param vector
      * @param savePath
      * @throws IOException
      */
-    public void writeVector(Vector<String> vector, String savePath)
-            throws IOException {
-        // TODO Auto-generated method stub
+    public void writeVector(Vector<String> vector, String savePath) throws IOException {
         File f = new File(savePath);
         FileWriter fw = new FileWriter(f);
         BufferedWriter bw = new BufferedWriter(fw);

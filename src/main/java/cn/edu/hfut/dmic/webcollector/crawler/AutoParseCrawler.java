@@ -33,10 +33,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author hu
  */
-public abstract class AutoParseCrawler extends Crawler implements Executor, Visitor{
+public abstract class AutoParseCrawler extends Crawler implements Executor, Visitor {
 
     public static final Logger LOG = LoggerFactory.getLogger(AutoParseCrawler.class);
 
@@ -63,19 +62,12 @@ public abstract class AutoParseCrawler extends Crawler implements Executor, Visi
         super.start(depth);
     }
 
-    //    @Override
-//    public Page getResponse(CrawlDatum crawlDatum) throws Exception {
-//        HttpRequest request = new HttpRequest(crawlDatum);
-//        return request.responsePage();
-//    }
-
     @Override
     protected void registerOtherConfigurations() {
         super.registerOtherConfigurations();
         ConfigurationUtils.setTo(this, requester);
         ConfigurationUtils.setTo(this, visitor);
     }
-
 
     /**
      * URL正则约束
@@ -85,12 +77,9 @@ public abstract class AutoParseCrawler extends Crawler implements Executor, Visi
     @Override
     public void execute(CrawlDatum datum, CrawlDatums next) throws Exception {
         Page page = requester.getResponse(datum);
-//        visitor.visit(page, next);
+        visitor.visit(page, next);
         visitorMethodDispatcher.dispatch(page, next);
-
     }
-
-
 
     /**
      * 添加URL正则约束
@@ -102,7 +91,6 @@ public abstract class AutoParseCrawler extends Crawler implements Executor, Visi
     }
 
     /**
-     *
      * @return 返回是否自动抽取符合正则的链接并加入后续任务
      */
     public boolean isAutoParse() {
@@ -145,14 +133,14 @@ public abstract class AutoParseCrawler extends Crawler implements Executor, Visi
         return visitor;
     }
 
-//    /**
-//     * 设置Visitor
-//     *
-//     * @param visitor Visitor
-//     */
-//    public void setVisitor(Visitor visitor) {
-//        this.visitor = visitor;
-//    }
+    /**
+     * 设置Visitor
+     *
+     * @param visitor Visitor
+     */
+    public void setVisitor(Visitor visitor) {
+        this.visitor = visitor;
+    }
 
     public Requester getRequester() {
         return requester;
@@ -161,6 +149,4 @@ public abstract class AutoParseCrawler extends Crawler implements Executor, Visi
     public void setRequester(Requester requester) {
         this.requester = requester;
     }
-
-    
 }

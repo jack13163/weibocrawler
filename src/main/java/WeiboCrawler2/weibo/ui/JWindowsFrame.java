@@ -1,9 +1,10 @@
-package WeiboCrawler2.weibo.client;
+package WeiboCrawler2.weibo.ui;
 
-import WeiboCrawler2.Xici.Crawler;
 import WeiboCrawler2.Xici.IPBean;
 import WeiboCrawler2.Xici.XiciEntrance;
 import WeiboCrawler2.utils.FileOperation;
+import WeiboCrawler2.weibo.collector.WeiboController;
+import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
 
 import javax.swing.*;
 import java.awt.*;
@@ -208,7 +209,7 @@ public class JWindowsFrame extends JFrame {
 
         JTFSaveHTMLPath = new JTextField(PATH_FIELD_LENGTH);
         JTFSaveHTMLPath.setEditable(true);
-        JTFSaveHTMLPath.setText("Data/HTML/");
+        JTFSaveHTMLPath.setText("Data/");
 
         JBSaveHTMLOpenFile = new JButton(OPEN_FILE_BUTTON_NAME);
 
@@ -222,7 +223,7 @@ public class JWindowsFrame extends JFrame {
 
         JTFSaveTXTPath = new JTextField(PATH_FIELD_LENGTH);
         JTFSaveTXTPath.setEditable(true);
-        JTFSaveTXTPath.setText("Data/TXT/");
+        JTFSaveTXTPath.setText("Data/");
 
         JBSaveTXTOpenFile = new JButton(OPEN_FILE_BUTTON_NAME);
 
@@ -236,7 +237,7 @@ public class JWindowsFrame extends JFrame {
 
         JTFSaveXMLPath = new JTextField(PATH_FIELD_LENGTH);
         JTFSaveXMLPath.setEditable(true);
-        JTFSaveXMLPath.setText("Data/XML/");
+        JTFSaveXMLPath.setText("Data/");
 
         JBSaveXMLOpenFile = new JButton(OPEN_FILE_BUTTON_NAME);
 
@@ -468,14 +469,14 @@ public class JWindowsFrame extends JFrame {
         ActionListener actionCrawl = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent click) {
-                String searchwords, saveHTMLPath, saveTXTPath, SaveXMLPath, plainIPsPath, pageNum;
+                final String searchwords, saveHTMLPath, saveTXTPath, SaveXMLPath, plainIPsPath;
                 searchwords = JTASearchWords.getText();
                 saveHTMLPath = JTFSaveHTMLPath.getText();
                 saveTXTPath = JTFSaveTXTPath.getText();
                 SaveXMLPath = JTFSaveXMLPath.getText();
                 plainIPsPath = JTFPlainIPs.getText();
-                pageNum = JTFPages.getText();
-                final String[] crawlerArgs = {searchwords, saveHTMLPath, saveTXTPath, SaveXMLPath, plainIPsPath, pageNum};
+                final int pageNum = Integer.parseInt(JTFPages.getText());
+                final String[] crawlerArgs = {searchwords, saveHTMLPath, saveTXTPath, SaveXMLPath, plainIPsPath, pageNum+""};
 
                 int ifCrawlFlag = 0;
                 for (int i = 0; i < 6; i++) {
@@ -521,8 +522,20 @@ public class JWindowsFrame extends JFrame {
                         @Override
                         public void run() {
                             try {
-                                Crawler c = new Crawler();
-                                c.excute(crawlerArgs, JTARunInfo);
+                                for(String keyword: searchwords.trim().split("\n")) {
+                                    // 设置webcollector参数
+                                    WeiboController controller = new WeiboController("Data/env", false);// 网页、图片、文件被存储在download文件夹中
+                                    controller.setThreads(3);
+                                    controller.addRegex("http://m.weibo.cn/.*");
+
+                                    /*对某人微博前5页进行爬取*/
+                                    for (int i = 1; i <= pageNum; i++) {
+                                        // 添加爬取种子,也就是需要爬取的网站地址,以及爬取深度
+                                        controller.addSeed(new CrawlDatum("https://s.weibo.com/weibo?q=" + keyword + "&page=" + i).meta("pageNum", i + ""));
+                                    }
+                                    // 爬取深度
+                                    controller.start(1);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -533,7 +546,6 @@ public class JWindowsFrame extends JFrame {
             }
         };
         JBCrawl.addActionListener(actionCrawl);
-
     }
 
     public static void main(String[] args) {
