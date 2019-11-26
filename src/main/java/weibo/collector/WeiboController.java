@@ -1,40 +1,37 @@
 package weibo.collector;
 
-import weibo.Xici.IPBean;
-import weibo.Xici.XiciEntrance;
-import weibo.Xici.XiciProxyIP;
 import weibo.utils.FileOperation;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
 import cn.edu.hfut.dmic.webcollector.model.Page;
 import cn.edu.hfut.dmic.webcollector.plugin.berkeley.BreadthCrawler;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import weibo.utils.HttpRequestHelper;
+import weibo.utils.ImageDownload;
 import weibo.utils.PropertiesFileReadHelper;
 
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 利用WebCollector获取的cookie爬取新浪微博并抽取数据
  */
 public class WeiboController extends BreadthCrawler {
     private String cookie = "";
+    private Properties properties = null;
     private static final String cookiePath = "Data/cookie.txt";
     private static final String plainIPsPath = "Data/plainIPs.txt";
 
     public WeiboController(String crawlPath, boolean autoParse) throws Exception {
         super(crawlPath, autoParse);
+        // 读取配置文件
+        properties = PropertiesFileReadHelper.readProperties("userconfig.properties");
 
         // 获取登陆凭证
         String tmp = FileOperation.html2String(cookiePath);
         if (tmp.isEmpty() || tmp == "") {
-            Properties properties = PropertiesFileReadHelper.readProperties("userconfig.properties");
             cookie = XinLangCookie.loginAndGetCookies(properties.get("userName").toString(), properties.get("password").toString());
             FileOperation.writeString(cookie, cookiePath);
             if (!cookie.contains("SUB")) {
@@ -47,24 +44,56 @@ public class WeiboController extends BreadthCrawler {
 
     /**
      * 暂时不支持代理
+     *
      * @param datum
      * @param next
      * @throws Exception
      */
     @Override
     public void execute(CrawlDatum datum, CrawlDatums next) throws Exception {
-        // 使用OkHttpClient发送请求
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(datum.url())
-                .get()
-                .addHeader("Cookie", cookie)
-                .addHeader("cache-control", "no-cache")
-                .addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36")
-                .build();
-        Response response = client.newCall(request).execute();
+        String topicResult = HttpRequestHelper.getResultOkHttpClient(datum.url(), cookie);
 
-        System.out.println(datum.url() + "\n\n" + response.body().string());
+        // 存储详情链接
+        Map<String, String> detailMap = new HashMap<String, String>();
+        Matcher matcher = Pattern.compile("<a\\s+?href=\"([^\"]*)\".+?nick-name=\"([^\"]*)\".+?>").matcher(topicResult);
+        while (matcher.find()) {
+            String url = matcher.group(1);
+            String name = matcher.group(2);
+            detailMap.put(name, url);
+            System.out.println(name + " : " + url);
+        }
+
+        for (String name : detailMap.keySet()) {
+            // 前往博客首页抓取最新的动态
+            String url = "http:" + detailMap.get(name);
+            String detailResult = HttpRequestHelper.getResultOkHttpClient(url, cookie);
+
+            Matcher matcher2 = Pattern.compile("\\{.+?\"html\":\"(.+?)\"\\}").matcher(detailResult);
+            List<String> bowens = new ArrayList<String>();
+            while (matcher2.find()) {
+                String bowen = matcher2.group(1).replaceAll("\\\\", "");
+
+                // 获取图片地址
+                List<String> pics = new ArrayList<String>();
+                Matcher matcher3 = Pattern.compile("<img.+?src=\"(.+?)\"[^>]+?>").matcher(bowen);
+                while (matcher3.find()) {
+                    String imgUrl = matcher3.group(1);
+                    // 过滤用户头像
+                    if (imgUrl.startsWith("//")) {
+                        imgUrl = "http:" + imgUrl;
+                        System.out.println(url + " : " + imgUrl);
+                        pics.add(imgUrl);
+                    }
+                }
+
+                // 批量下载图片
+                for (String p : pics) {
+                    ImageDownload.download(p, properties.get("imageSavePath").toString());
+                }
+
+                bowens.add(bowen);
+            }
+        }
     }
 
     public void visit(Page page, CrawlDatums next) {
