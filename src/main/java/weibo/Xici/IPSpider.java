@@ -1,4 +1,4 @@
-package WeiboCrawler2.Xici;
+package weibo.Xici;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -54,7 +54,6 @@ public class IPSpider {
 
     private List<IPBean> crawl(String api, int index) {
         String html = HttpUtils.getResponseContent(api + index);
-        System.out.println(html);
 
         Document document = Jsoup.parse(html);
         Elements eles = document.select("table").select("tr");

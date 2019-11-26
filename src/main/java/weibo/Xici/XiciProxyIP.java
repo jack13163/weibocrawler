@@ -1,4 +1,4 @@
-package WeiboCrawler2.Xici;
+package weibo.Xici;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -45,11 +45,10 @@ public class XiciProxyIP {
             httpCon.setConnectTimeout(5000);
             httpCon.setReadTimeout(5000);
             int code = ((HttpURLConnection) httpCon).getResponseCode();
-            System.out.println(code);
             return code == 200;
         } catch (IOException e) {
             // 无法通过代理服务器访问百度，则说明代理IP无效
-            System.out.println("IP无效");
+            // System.out.println("IP无效");
         }
         return false;
     }

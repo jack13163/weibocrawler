@@ -1,4 +1,4 @@
-package WeiboCrawler2.Xici;
+package weibo.Xici;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ public class XiciEntrance {
         Gson gson = new Gson();
         for (IPBean ipBean : list) {
             final IPBean ip_bean = ipBean;
-            System.out.println(gson.toJson(ipBean));
 
             // 开启多个线程验证
             new Thread(new Runnable() {

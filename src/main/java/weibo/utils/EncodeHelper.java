@@ -1,4 +1,4 @@
-package WeiboCrawler2.utils;
+package weibo.utils;
 
 public class EncodeHelper {
     // ASCII、ISO-8859-1、GB2312、GBK、UTF-8、UTF-16

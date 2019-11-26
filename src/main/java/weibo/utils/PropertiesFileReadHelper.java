@@ -1,12 +1,6 @@
-package WeiboCrawler2.utils;
+package weibo.utils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 public class PropertiesFileReadHelper {

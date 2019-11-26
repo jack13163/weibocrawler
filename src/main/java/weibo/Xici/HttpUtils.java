@@ -1,4 +1,4 @@
-package WeiboCrawler2.Xici;
+package weibo.Xici;
 
 import javax.net.ssl.*;
 import java.io.BufferedReader;
@@ -36,7 +36,7 @@ public class HttpUtils {
 
     /**
      * @param url
-     * @param headerMap ����ͷ��
+     * @param headerMap
      * @param ipBean
      * @return
      * @throws Exception
@@ -44,7 +44,6 @@ public class HttpUtils {
     public static String getResponseContent(String url, Map<String, List<String>> headerMap, IPBean ipBean) throws Exception {
         HttpsURLConnection connection = null;
 
-        // ���ô���
         if (ipBean != null) {
             Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(ipBean.getIp(), ipBean.getPort()));
 
@@ -61,7 +60,7 @@ public class HttpUtils {
         if (connection == null)
             connection = (HttpsURLConnection) new URL(url).openConnection();
 
-        // �������ͷ��
+        // 设置请求头
         connection.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.81 Safari/537.36");
         if (headerMap != null) {
             Iterator<Map.Entry<String, List<String>>> iterator = headerMap.entrySet().iterator();

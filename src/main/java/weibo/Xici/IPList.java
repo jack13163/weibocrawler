@@ -1,4 +1,4 @@
-package WeiboCrawler2.Xici;
+package weibo.Xici;
 
 import java.util.ArrayList;
 import java.util.List;

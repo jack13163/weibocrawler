@@ -1,4 +1,4 @@
-package WeiboCrawler2.weibo.collector;
+package weibo.collector;
 
 import javax.swing.*;
 import java.awt.*;

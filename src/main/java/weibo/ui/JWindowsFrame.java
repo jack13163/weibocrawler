@@ -1,9 +1,9 @@
-package WeiboCrawler2.weibo.ui;
+package weibo.ui;
 
-import WeiboCrawler2.Xici.IPBean;
-import WeiboCrawler2.Xici.XiciEntrance;
-import WeiboCrawler2.utils.FileOperation;
-import WeiboCrawler2.weibo.collector.WeiboController;
+import weibo.Xici.IPBean;
+import weibo.Xici.XiciEntrance;
+import weibo.utils.FileOperation;
+import weibo.collector.WeiboController;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
 
 import javax.swing.*;

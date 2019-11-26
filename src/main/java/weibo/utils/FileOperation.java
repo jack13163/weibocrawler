@@ -1,9 +1,6 @@
-package WeiboCrawler2.utils;
+package weibo.utils;
 
-import WeiboCrawler2.Xici.IPBean;
-import com.gargoylesoftware.htmlunit.util.Cookie;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+import weibo.Xici.IPBean;
 
 import java.io.*;
 import java.util.*;

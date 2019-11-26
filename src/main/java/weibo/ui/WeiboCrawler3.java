@@ -1,4 +1,4 @@
-package WeiboCrawler2.weibo.ui;
+package weibo.ui;
 
 import java.awt.Desktop;
 import java.awt.Toolkit;

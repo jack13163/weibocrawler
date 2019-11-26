@@ -1,4 +1,4 @@
-package WeiboCrawler2.utils;
+package weibo.utils;
 
 import com.sleepycat.je.*;
 

@@ -1,4 +1,4 @@
-package WeiboCrawler2.Xici;
+package weibo.Xici;
 
 public class IPBean {
     public static final int TYPE_HTTP = 0;

@@ -1,4 +1,4 @@
-package WeiboCrawler2.utils;
+package weibo.utils;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.io.OutputFormat;

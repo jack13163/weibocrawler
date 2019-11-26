@@ -1,4 +1,4 @@
-package WeiboCrawler2.utils;
+package weibo.utils;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;

@@ -1,4 +1,4 @@
-package WeiboCrawler2.utils;
+package weibo.utils;
 
 import com.alibaba.fastjson.JSONObject;
 import org.dom4j.Element;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
-public class MevenHelper {
+public class MavenHelper {
     public static void main(String[] args) throws FileNotFoundException, IOException {
         Element dependencys = new DOMElement("dependencies");
         File dir = new File("lib");
