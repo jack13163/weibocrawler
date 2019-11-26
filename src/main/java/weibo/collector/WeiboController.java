@@ -84,6 +84,7 @@ public class WeiboController extends BreadthCrawler {
                         // 判断图片是否为缩略图，用于找到对应的原图
                         Matcher matcher4 = Pattern.compile("//wx[1-4].sinaimg.cn/.+?/(.*)").matcher(imgUrl);
                         if(matcher4.find()){
+                            // 实际上，微博原图所存放的服务器和缩略图存在的服务器的域名可能不同，但是文件名称相同
                             imgUrl = "https://wx2.sinaimg.cn/mw690/" + matcher4.group(1);
                             System.out.println(imgUrl);
                             pics.add(imgUrl);
