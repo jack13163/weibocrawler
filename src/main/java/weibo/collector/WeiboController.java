@@ -1,5 +1,6 @@
 package weibo.collector;
 
+import weibo.ui.JWindowsFrame;
 import weibo.utils.FileOperation;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
@@ -51,7 +52,10 @@ public class WeiboController extends BreadthCrawler {
     public void execute(CrawlDatum datum, CrawlDatums next) throws Exception {
         String topicResult = HttpRequestHelper.getResultOkHttpClient(datum.url(), cookie);
 
-        // 查找所有博主的昵称和个人主页链接
+        // 解析本页所有的博客信息
+        WeiboPartical.showWeiboInfoToTextarea(topicResult, JWindowsFrame.JTARunInfo);
+
+        // 解析本页所有博主的昵称和个人主页链接
         Map<String, String> detailMap = new HashMap<String, String>();
         Matcher matcher = Pattern.compile("<a\\s+?href=\"([^\"]*)\".+?nick-name=\"([^\"]*)\".+?>").matcher(topicResult);
         while (matcher.find()) {
@@ -61,8 +65,8 @@ public class WeiboController extends BreadthCrawler {
             System.out.println(name + " : " + url);
         }
 
+        // 前往博客首页抓取最新的动态
         for (String name : detailMap.keySet()) {
-            // 前往博客首页抓取最新的动态
             String url = "http:" + detailMap.get(name);
             WeiboPartical.downHomePageImages(url, cookie, properties.get("imageSavePath").toString());
         }

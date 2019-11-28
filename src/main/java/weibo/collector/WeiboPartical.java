@@ -10,6 +10,7 @@ import weibo.utils.HttpRequestHelper;
 import weibo.utils.ImageDownload;
 import weibo.utils.PropertiesFileReadHelper;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -229,45 +230,8 @@ public class WeiboPartical {
     }
 
     /**
-     * 获取某一网页上所有微博的详细信息
-     *
-     * @param htmlString
-     * @return
-     */
-    private static List<WeiboInfo> getWeiboInfo(String htmlString) {
-        List<WeiboInfo> weiboInfos = new ArrayList<WeiboInfo>();
-
-        // 利用jsoup解析html
-        Document document = Jsoup.parseBodyFragment(htmlString);
-        Elements contents = document.selectFirst(".m-con-l").select(".card-wrap");
-
-        for (int i = 0; i < contents.size(); i++) {
-            String oneIniWeibo = contents.get(i).toString();
-
-            try {
-                String userName = getUserName(oneIniWeibo);
-                String date = getDate(oneIniWeibo);
-                String userid = getUserid(oneIniWeibo);
-                String weiboid = getWeiboid(oneIniWeibo);
-                String weiboSentence = getWeiboSentence(oneIniWeibo);
-                String url = getWeiboURL(oneIniWeibo);
-                // 若下述三条信息不存在，则说明不是一个有效的博文，会忽略解析
-                int praisedNum = getPraisedNum(oneIniWeibo);
-                int forwardNum = getForwardNum(oneIniWeibo);
-                int commentNum = getCommentNum(oneIniWeibo);
-
-                WeiboInfo weiboInfo = new WeiboInfo(userName, date, userid, weiboid, weiboSentence,url, praisedNum, forwardNum, commentNum);
-                weiboInfos.add(weiboInfo);
-                System.out.println(weiboInfo);
-            } catch (Exception ex) {
-            }
-        }
-
-        return weiboInfos;
-    }
-
-    /**
      * 获取原文的url地址
+     *
      * @param bowen
      * @return
      */
@@ -320,6 +284,25 @@ public class WeiboPartical {
         return isExist;
     }
 
+    /**
+     * 把微博信息全写到文件中去
+     *
+     * @param weiboInfos
+     * @param savePath
+     */
+    private static void writeWeiboInfoToFile(List<WeiboInfo> weiboInfos, String savePath) {
+        try {
+            File f = new File(savePath);
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for (int i = 0; i < weiboInfos.size(); i++) {
+                bw.write(weiboInfos.get(i).toString() + "\n");
+            }
+            bw.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * 根据关键词爬取
@@ -327,7 +310,7 @@ public class WeiboPartical {
      * @param cookie
      * @param searchWord
      */
-    private static List<String> crawlByKeyWord(String cookie, String searchWord) throws Exception {
+    public static List<String> crawlByKeyWord(String cookie, String searchWord) throws Exception {
         return crawlPagesByKeyWord(cookie, searchWord, 1);
     }
 
@@ -363,32 +346,87 @@ public class WeiboPartical {
     }
 
     /**
-     * 把微博信息全写到文件中去
+     * 获取某一网页上所有微博的详细信息
      *
-     * @param weiboInfos
-     * @param savePath
+     * @param htmlString
+     * @return
      */
-    private static void writeWeiboInfoToFile(List<WeiboInfo> weiboInfos, String savePath) {
-        try {
-            File f = new File(savePath);
-            FileWriter fw = new FileWriter(f);
-            BufferedWriter bw = new BufferedWriter(fw);
-            for (int i = 0; i < weiboInfos.size(); i++) {
-                bw.write(weiboInfos.get(i).toString() + "\n");
+    public static List<WeiboInfo> getWeiboInfo(String htmlString) {
+        List<WeiboInfo> weiboInfos = new ArrayList<WeiboInfo>();
+
+        // 利用jsoup解析html
+        Document document = Jsoup.parseBodyFragment(htmlString);
+        Elements contents = document.selectFirst(".m-con-l").select(".card-wrap");
+
+        for (int i = 0; i < contents.size(); i++) {
+            String oneIniWeibo = contents.get(i).toString();
+
+            try {
+                String userName = getUserName(oneIniWeibo);
+                String date = getDate(oneIniWeibo);
+                String userid = getUserid(oneIniWeibo);
+                String weiboid = getWeiboid(oneIniWeibo);
+                String weiboSentence = getWeiboSentence(oneIniWeibo);
+                String url = getWeiboURL(oneIniWeibo);
+                // 若下述三条信息不存在，则说明不是一个有效的博文，会忽略解析
+                int praisedNum = getPraisedNum(oneIniWeibo);
+                int forwardNum = getForwardNum(oneIniWeibo);
+                int commentNum = getCommentNum(oneIniWeibo);
+
+                WeiboInfo weiboInfo = new WeiboInfo(userName, date, userid, weiboid, weiboSentence, url, praisedNum, forwardNum, commentNum);
+                weiboInfos.add(weiboInfo);
+                System.out.println(weiboInfo);
+            } catch (Exception ex) {
             }
-            bw.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        }
+
+        return weiboInfos;
+    }
+
+    /**
+     * 分析某一个网页中的微博内容
+     *
+     * @param htmlStrs
+     * @param textArea
+     * @throws Exception
+     */
+    public static void getWeiboInfo(String htmlStrs, final JTextArea textArea) throws Exception {
+        List<WeiboInfo> oneHTMLWeibos = getWeiboInfo(htmlStrs);
+
+        for (int j = 0; j < oneHTMLWeibos.size(); j++) {
+            final WeiboInfo weiboInfo = oneHTMLWeibos.get(j);
+            // 显示到UI
+            if(textArea != null){
+                Runnable showMessage = new Runnable() {
+                    public void run() {
+                        textArea.append(weiboInfo + "\n");
+                    }
+                };
+                SwingUtilities.invokeAndWait(showMessage);
+            }
         }
     }
 
     /**
      * 搜索某一关键字相关的微博内容
+     *
      * @param searchWord
      * @param totalPage
      * @throws Exception
      */
     public static void searchWeibo(String searchWord, int totalPage) throws Exception {
+        searchWeibo(searchWord, totalPage,null);
+    }
+
+    /**
+     * 搜索某一关键字相关的微博内容
+     *
+     * @param searchWord
+     * @param totalPage
+     * @param textArea
+     * @throws Exception
+     */
+    public static void searchWeibo(String searchWord, int totalPage, final JTextArea textArea) throws Exception {
         // 读取配置文件
         Properties properties = PropertiesFileReadHelper.readProperties("userconfig.properties");
 
@@ -409,18 +447,21 @@ public class WeiboPartical {
         for (int i = 0; i < htmlStrs.size(); i++) {
             List<WeiboInfo> oneHTMLWeibos = getWeiboInfo(htmlStrs.get(i));
             for (int j = 0; j < oneHTMLWeibos.size(); j++) {
-                // 存到总微博里
-                if (!allWeibos.contains(oneHTMLWeibos.get(j))) {
-                    allWeibos.add(oneHTMLWeibos.get(j));
+                final WeiboInfo weiboInfo = oneHTMLWeibos.get(j);
+                allWeibos.add(weiboInfo);
+                // 显示到UI
+                if(textArea != null){
+                    Runnable showMessage = new Runnable() {
+                        public void run() {
+                            textArea.append(weiboInfo + "\n");
+                        }
+                    };
+                    SwingUtilities.invokeAndWait(showMessage);
                 }
             }
         }
 
         // 将该关键词相关的微博信息写入到txt文件
         writeWeiboInfoToFile(allWeibos, properties.get("bowenSavePath").toString() + searchWord + ".txt");
-    }
-
-    public static void main(String[] args) throws Exception {
-        searchWeibo("程序员",5);
     }
 }
