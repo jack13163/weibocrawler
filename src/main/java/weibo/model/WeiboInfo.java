@@ -7,6 +7,7 @@ public class WeiboInfo {
     private String userid;
     private String weiboid;
     private String weiboSentence;
+    private String url;
     private int praisedNum;
     private int forwardNum;
     private int commentNum;
@@ -15,8 +16,9 @@ public class WeiboInfo {
 
     }
 
-    public WeiboInfo(String userName, String date, String userid, String weiboid, String weiboSentence, int praisedNum, int forwardNum, int commentNum) {
+    public WeiboInfo(String userName, String date, String userid, String weiboid, String weiboSentence,String url, int praisedNum, int forwardNum, int commentNum) {
         this.userName = userName;
+        this.url = url;
         this.date = date;
         this.userid = userid;
         this.weiboid = weiboid;
@@ -32,6 +34,7 @@ public class WeiboInfo {
                 "," + date +
                 "," + weiboid +
                 ",@@" + weiboSentence + "@@" +
+                "," + url +
                 "," + praisedNum +
                 "," + forwardNum +
                 "," + commentNum;
@@ -91,5 +94,13 @@ public class WeiboInfo {
 
     public int getCommentNum() {
         return commentNum;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

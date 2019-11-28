@@ -250,12 +250,13 @@ public class WeiboPartical {
                 String userid = getUserid(oneIniWeibo);
                 String weiboid = getWeiboid(oneIniWeibo);
                 String weiboSentence = getWeiboSentence(oneIniWeibo);
+                String url = getWeiboURL(oneIniWeibo);
                 // 若下述三条信息不存在，则说明不是一个有效的博文，会忽略解析
                 int praisedNum = getPraisedNum(oneIniWeibo);
                 int forwardNum = getForwardNum(oneIniWeibo);
                 int commentNum = getCommentNum(oneIniWeibo);
 
-                WeiboInfo weiboInfo = new WeiboInfo(userName, date, userid, weiboid, weiboSentence, praisedNum, forwardNum, commentNum);
+                WeiboInfo weiboInfo = new WeiboInfo(userName, date, userid, weiboid, weiboSentence,url, praisedNum, forwardNum, commentNum);
                 weiboInfos.add(weiboInfo);
                 System.out.println(weiboInfo);
             } catch (Exception ex) {
@@ -263,6 +264,22 @@ public class WeiboPartical {
         }
 
         return weiboInfos;
+    }
+
+    /**
+     * 获取原文的url地址
+     * @param bowen
+     * @return
+     */
+    private static String getWeiboURL(String bowen) {
+        String url = "";
+
+        Matcher matcher = Pattern.compile("<a\\s+?href=\"([^\"]*)\".+?nick-name=\"[^\"]*\".+?>").matcher(bowen);
+        if (matcher.find()) {
+            url = matcher.group(1);
+        }
+
+        return url;
     }
 
     /**
