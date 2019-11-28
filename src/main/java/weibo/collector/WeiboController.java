@@ -53,7 +53,7 @@ public class WeiboController extends BreadthCrawler {
         String topicResult = HttpRequestHelper.getResultOkHttpClient(datum.url(), cookie);
 
         // 解析本页所有的博客信息
-        WeiboPartical.showWeiboInfoToTextarea(topicResult, JWindowsFrame.JTARunInfo);
+        WeiboPartical.getWeiboInfo(topicResult, JWindowsFrame.JTARunInfo);
 
         // 解析本页所有博主的昵称和个人主页链接
         Map<String, String> detailMap = new HashMap<String, String>();
