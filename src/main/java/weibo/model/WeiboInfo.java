@@ -28,14 +28,13 @@ public class WeiboInfo {
 
     @Override
     public String toString() {
-        return "userName: " + userName +
-                ", userId: " + userid +
-                ", date: " + date +
-                ", weiboId: " + weiboid +
-                ", content: " + weiboSentence +
-                ", praisedNum: " + praisedNum +
-                ", forwardNum: " + forwardNum +
-                ", commentNum: " + commentNum;
+        return userName + "," + userid +
+                "," + date +
+                "," + weiboid +
+                ",@@" + weiboSentence + "@@" +
+                "," + praisedNum +
+                "," + forwardNum +
+                "," + commentNum;
     }
 
     public String getUserName() {
