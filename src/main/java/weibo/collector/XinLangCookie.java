@@ -37,9 +37,6 @@ import com.alibaba.fastjson.JSONObject;
 /*
  * 本代码利用携带cookie的方法测试新浪通行证模拟登陆，以及微博跨域登录，以及获取登陆成功后的网页。
  * 新浪通行证地址：https://login.sina.com.cn/signup/signin.php
- *
- * 测试成功时间:2018/6/29
- *
  */
 public class XinLangCookie {
 
@@ -147,8 +144,7 @@ public class XinLangCookie {
      * @param url1
      * @throws Exception
      */
-    public void login (String url1) throws Exception {
-
+    private void login (String url1) throws Exception {
 
         //CloseableHttpClient httpclient = HttpClients.createDefault();//如果用此行代码创建httpclient会出现Cookie rejected警告，网上翻阅资料说是cookie策略导致的，将代码换成下两行代替可解决。
         RequestConfig globalConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES).build();
@@ -315,10 +311,5 @@ public class XinLangCookie {
 
         //httpGet.addHeader(new BasicHeader("Cookie", this.cookie_weibocom.toString()));//携带对应cookie
         return result;
-    }
-
-    public static void main(String []  args) throws Exception{
-
-        System.out.println(loginAndGetCookies("账号","密码"));
     }
 }

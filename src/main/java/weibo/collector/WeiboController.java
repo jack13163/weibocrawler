@@ -66,39 +66,7 @@ public class WeiboController extends BreadthCrawler {
         for (String name : detailMap.keySet()) {
             // 前往博客首页抓取最新的动态
             String url = "http:" + detailMap.get(name);
-            String detailResult = HttpRequestHelper.getResultOkHttpClient(url, cookie);
-
-            Matcher matcher2 = Pattern.compile("\\{.+?\"html\":\"(.+?)\"\\}").matcher(detailResult);
-            List<String> bowens = new ArrayList<String>();
-
-            while (matcher2.find()) {
-                String bowen = matcher2.group(1).replaceAll("\\\\", "");
-
-                // 获取图片地址
-                List<String> pics = new ArrayList<String>();
-                Matcher matcher3 = Pattern.compile("<img.+?src=\"(.+?)\"[^>]+?>").matcher(bowen);
-                while (matcher3.find()) {
-                    String imgUrl = matcher3.group(1);
-                    // 过滤用户头像
-                    if (imgUrl.startsWith("//")) {
-                        // 判断图片是否为缩略图，用于找到对应的原图
-                        Matcher matcher4 = Pattern.compile("//wx[1-4].sinaimg.cn/.+?/(.*)").matcher(imgUrl);
-                        if(matcher4.find()){
-                            // 实际上，微博原图所存放的服务器和缩略图存在的服务器的域名可能不同，但是文件名称相同
-                            imgUrl = "https://wx2.sinaimg.cn/mw690/" + matcher4.group(1);
-                            System.out.println(imgUrl);
-                            pics.add(imgUrl);
-                        }
-                    }
-                }
-
-                // 批量下载图片
-                for (String p : pics) {
-                    ImageDownload.download(p, properties.get("imageSavePath").toString());
-                }
-
-                bowens.add(bowen);
-            }
+            WeiboPartical.downHomePageImages(url, cookie, properties.get("imageSavePath").toString());
         }
     }
 
