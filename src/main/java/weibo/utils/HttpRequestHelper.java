@@ -70,7 +70,7 @@ public class HttpRequestHelper {
     public static String getResultWebClient(String url, String cookie){
         String result ="";
         // 使用OkHttpClient发送请求
-        WebClient webclient = new WebClient(BrowserVersion.CHROME);
+        WebClient webclient = new WebClient(BrowserVersion.CHROME);//此处可以设置代理
         webclient.getCookieManager().setCookiesEnabled(true);
         webclient.getCookieManager().addCookie(new com.gargoylesoftware.htmlunit.util.Cookie(".weibo.com","Cookie",cookie));
         webclient.getOptions().setCssEnabled(false);

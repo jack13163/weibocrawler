@@ -41,43 +41,30 @@ public class WeiboController extends BreadthCrawler {
         }
     }
 
-    /**
-     * 暂时不支持代理
-     *
-     * @param datum
-     * @param next
-     * @throws Exception
-     */
-    @Override
-    public void execute(CrawlDatum datum, CrawlDatums next) throws Exception {
-        String topicResult = HttpRequestHelper.getResultOkHttpClient(datum.url(), cookie);
-
-        // 解析本页所有的博客信息
-        WeiboPartical.getWeiboInfo(topicResult, JWindowsFrame.JTARunInfo);
-
-        // 解析本页所有博主的昵称和个人主页链接
-        Map<String, String> detailMap = new HashMap<String, String>();
-        Matcher matcher = Pattern.compile("<a\\s+?href=\"([^\"]*)\".+?nick-name=\"([^\"]*)\".+?>").matcher(topicResult);
-        while (matcher.find()) {
-            String url = matcher.group(1);
-            String name = matcher.group(2);
-            detailMap.put(name, url);
-            System.out.println(name + " : " + url);
-        }
-
-        // 前往博客首页抓取最新的动态
-        for (String name : detailMap.keySet()) {
-            String url = "http:" + detailMap.get(name);
-            WeiboPartical.downHomePageImages(url, cookie, properties.get("imageSavePath").toString());
-        }
-    }
-
     public void visit(Page page, CrawlDatums next) {
-        int pageNum = Integer.valueOf(page.meta("pageNum"));
-        /*抽取微博*/
-        Elements weibos = page.select("#app");
-        for (Element weibo : weibos) {
-            System.out.println("第" + pageNum + "页\t" + weibo.text());
+
+        String url = page.url();
+        try {
+            String topicResult = HttpRequestHelper.getResultOkHttpClient(url, cookie);
+
+            // 解析本页所有的博客信息
+            WeiboPartical.getWeiboInfo(topicResult, JWindowsFrame.JTARunInfo);
+
+            // 解析本页所有博主的昵称和个人主页链接
+            Map<String, String> detailMap = new HashMap<String, String>();
+            Matcher matcher = Pattern.compile("<a\\s+?href=\"([^\"]*)\".+?nick-name=\"([^\"]*)\".+?>").matcher(topicResult);
+            while (matcher.find()) {
+                String homepage_url = "http:" + matcher.group(1);
+                String name = matcher.group(2);
+
+                // 前往博客首页抓取最新的动态
+                if (!detailMap.containsKey(name)) {
+                    detailMap.put(name, homepage_url);
+                    WeiboPartical.downHomePageImages(homepage_url, cookie, properties.get("imageSavePath").toString());
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
