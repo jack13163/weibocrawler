@@ -8,10 +8,9 @@ public class JTextAreaOutputStream extends OutputStream {
     private final JTextArea destination;
 
     public JTextAreaOutputStream(JTextArea destination) {
-        if (destination == null)
+        if (destination == null) {
             throw new IllegalArgumentException("Destination is null");
-
-
+        }
         this.destination = destination;
     }
 

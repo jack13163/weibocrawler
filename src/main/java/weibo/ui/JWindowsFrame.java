@@ -1,8 +1,5 @@
 package weibo.ui;
 
-import weibo.Xici.IPBean;
-import weibo.Xici.XiciEntrance;
-import weibo.utils.FileOperation;
 import weibo.collector.WeiboController;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
 
@@ -10,9 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.PrintStream;
-import java.util.List;
 
 public class JWindowsFrame extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -39,7 +33,6 @@ public class JWindowsFrame extends JFrame {
     private JTextArea JTASearchWords;
 
     private JPanel JWordsPanel;
-    private JPanel JPathPanel;
     private JPanel JButtonPanel;
     private JPanel JLeftPanel;
     private JPanel JRightPanel;
@@ -49,14 +42,13 @@ public class JWindowsFrame extends JFrame {
     private JLabel JLRunInfo;
     private JLabel JLpages;
 
-    final private int PATH_FIELD_LENGTH = 32;
     private JTextField JTFPages;
 
     private JButton JBCrawl;
 
     public JWindowsFrame() {
 
-        // 设置菜单选项
+        // ------------------------------菜单布局-----------------------------
         JMBOperation = new JMenuBar();
         JMIAuthor = new JMenuItem("软件作者");
         JMIInstruction = new JMenuItem("使用说明");
@@ -66,20 +58,50 @@ public class JWindowsFrame extends JFrame {
         JMBOperation.add(JMAbout);
         setJMenuBar(JMBOperation);
 
+        // ------------------------------左边界面布局-----------------------------
         JLeftPanel = new JPanel();
         JLeftPanel.setLayout(new BorderLayout());
 
-        JRightPanel = new JPanel();
-        JRightPanel.setLayout(new BorderLayout());
-
+        JWordsPanel = new JPanel();
+        JWordsPanel.setLayout(new BorderLayout());
+        JLSearchWords = new JLabel("输入搜索话题，关键词用换行分开");
+        JWordsPanel.add(JLSearchWords, BorderLayout.CENTER);
+        // 文本框
+        JTASearchWords = new JTextArea(8, 1);
+        JTASearchWords.setEditable(true);
+        JTASearchWords.setText("摄影");
+        JSPSearchWords = new JScrollPane(JTASearchWords);
+        // 下拉滚动条
+        JSPSearchWords.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        JSPSearchWords.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         JScroB = new JScrollBar();
         JScroB.setVisible(true);
+        JSPSearchWords.add(JScroB);
+        JWordsPanel.add(JSPSearchWords, BorderLayout.SOUTH);
 
+        JPagesPanel = new JPanel();
+        JLpages = new JLabel("设置每个关键词获取页数(1~50，默认50): ");
+        JPagesPanel.add(JLpages, BorderLayout.WEST);
+        JTFPages = new JTextField(4);
+        JTFPages.setEditable(true);
+        JTFPages.setText("8");
+        JPagesPanel.add(JTFPages, BorderLayout.EAST);
+
+        JButtonPanel = new JPanel();
+        JButtonPanel.setLayout(new FlowLayout());
+        JBCrawl = new JButton("爬取微博");
+        JButtonPanel.add(JBCrawl);
+
+        JLeftPanel.add(JWordsPanel, BorderLayout.NORTH);
+        JLeftPanel.add(JPagesPanel, BorderLayout.CENTER);
+        JLeftPanel.add(JButtonPanel, BorderLayout.SOUTH);
+
+        // ------------------------------右边界面布局-----------------------------
+        JRightPanel = new JPanel();
+        JRightPanel.setLayout(new BorderLayout());
         JLRunInfo = new JLabel("相关信息");
-
         JTARunInfo = new JTextArea();
         JTARunInfo.setEditable(false);// 设置文本框是否可以编辑
-
         JSPRunInfo = new JScrollPane(JTARunInfo);
         JSPRunInfo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         JSPRunInfo.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -88,53 +110,8 @@ public class JWindowsFrame extends JFrame {
         JRightPanel.add(JLRunInfo, BorderLayout.NORTH);
         JRightPanel.add(JSPRunInfo);
 
-        JWordsPanel = new JPanel();
-        JWordsPanel.setLayout(new BorderLayout());
-
-        JLSearchWords = new JLabel("输入搜索话题，关键词用换行分开");
-        // 话题之间用换行分开
-
-        JTASearchWords = new JTextArea(8, 1);
-        JTASearchWords.setEditable(true);
-        JTASearchWords.setText("摄影");
-
-        JSPSearchWords = new JScrollPane(JTASearchWords);
-        JSPSearchWords.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        JSPSearchWords.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        JSPSearchWords.add(JScroB);
-
-        JWordsPanel.add(JLSearchWords, BorderLayout.CENTER);
-        JWordsPanel.add(JSPSearchWords, BorderLayout.SOUTH);
-
-        JPathPanel = new JPanel();
-        JPathPanel.setLayout(new GridLayout(9, 1));
-
-        JLpages = new JLabel("设置每个关键词获取页数(1~50，默认50): ");
-
-        JTFPages = new JTextField(PATH_FIELD_LENGTH / 10);
-        JTFPages.setEditable(true);
-        JTFPages.setText("8");
-
-        JPagesPanel = new JPanel();
-        JPagesPanel.add(JLpages, BorderLayout.WEST);
-        JPagesPanel.add(JTFPages, BorderLayout.EAST);
-        JPathPanel.add(JPagesPanel);
-
-        JBCrawl = new JButton("爬取微博");
-
-        JButtonPanel = new JPanel();
-        JButtonPanel.setLayout(new FlowLayout());
-
-        // JButtonPanel.add(JBGetIP);
-        JButtonPanel.add(JBCrawl);
-
-        JLeftPanel.add(JWordsPanel, BorderLayout.NORTH);
-        JLeftPanel.add(JPathPanel, BorderLayout.CENTER);
-        JLeftPanel.add(JButtonPanel, BorderLayout.SOUTH);
-
         Container c = getContentPane();
         c.setLayout(new BorderLayout());
-
         c.add(JLeftPanel, BorderLayout.WEST);
         c.add(JRightPanel);
     }
@@ -240,7 +217,7 @@ public class JWindowsFrame extends JFrame {
                 final JWindowsFrame frame = new JWindowsFrame();
 
                 // 设置输出流到gui中
-                System.setOut(new PrintStream(new JTextAreaOutputStream(JTARunInfo)));
+                // System.setOut(new PrintStream(new JTextAreaOutputStream(JTARunInfo)));
 
                 frame.setTitle("WeiboCrawler");
                 frame.setBounds((SCREEN_WIDTH - WINDOW_WIDTH) / 2, (SCREEN_HEIGHT - WINDOW_HEIGHT) / 2, WINDOW_WIDTH, WINDOW_HEIGHT);
