@@ -310,7 +310,7 @@ public class WeiboPartical {
      * @param cookie
      * @param searchWord
      */
-    public static List<String> crawlByKeyWord(String cookie, String searchWord) throws ClientProtocolException, URISyntaxException, IOException, InterruptedException {
+    private static List<String> crawlByKeyWord(String cookie, String searchWord) throws Exception {
         return crawlPagesByKeyWord(cookie, searchWord, 1);
     }
 
@@ -321,7 +321,7 @@ public class WeiboPartical {
      * @param searchWord
      * @param totalPage
      */
-    public static List<String> crawlPagesByKeyWord(String cookie, String searchWord, int totalPage) throws ClientProtocolException, URISyntaxException, IOException, InterruptedException {
+    public static List<String> crawlPagesByKeyWord(String cookie, String searchWord, int totalPage) throws Exception {
         List<String> result = new ArrayList<String>();
         for (int i = 1; i <= totalPage; i++) {
             //开始爬取，先把一个话题下的html都爬下来，再用这些html文件
@@ -351,7 +351,7 @@ public class WeiboPartical {
      * @param weiboInfos
      * @param savePath
      */
-    public static void writeWeiboInfoToFile(List<WeiboInfo> weiboInfos, String savePath) {
+    private static void writeWeiboInfoToFile(List<WeiboInfo> weiboInfos, String savePath) {
         try {
             File f = new File(savePath);
             FileWriter fw = new FileWriter(f);
@@ -365,8 +365,13 @@ public class WeiboPartical {
         }
     }
 
-    public static void main(String[] args) throws ClientProtocolException, URISyntaxException, IOException, InterruptedException {
-
+    /**
+     * 搜索某一关键字相关的微博内容
+     * @param searchWord
+     * @param totalPage
+     * @throws Exception
+     */
+    public static void searchWeibo(String searchWord, int totalPage) throws Exception {
         // 读取配置文件
         Properties properties = PropertiesFileReadHelper.readProperties("userconfig.properties");
 
@@ -379,31 +384,26 @@ public class WeiboPartical {
             cookie = tmp;
         }
 
-        String[] searchwords = {
-                "汽车摇号", "自贸区"
-        };
-        int totalPage = 3;//设置想要搜索的页数，则搜索范围为该搜索词下的第1到第totalPage页
+        List<WeiboInfo> allWeibos = new ArrayList<WeiboInfo>();//一个关键词搜索出来的所有微博
+        System.out.println("****开始爬取 \"" + searchWord + "\" 关键字的微博****");
+        List<String> htmlStrs = crawlPagesByKeyWord(cookie, searchWord, totalPage);
 
-        for (int n = 0; n < searchwords.length; n++) {
-            List<WeiboInfo> allWeibos = new ArrayList<WeiboInfo>();//一个关键词搜索出来的所有微博
-            String searchWord = searchwords[n];
-
-            System.out.println("****开始爬取 \"" + searchWord + "\" 关键字的微博****");
-            List<String> htmlStrs = crawlPagesByKeyWord(cookie, searchWord, totalPage);
-
-            // 从搜索页面html文件中得到微博，微博id，存入向量容器中
-            for (int i = 0; i < htmlStrs.size(); i++) {
-                List<WeiboInfo> oneHTMLWeibos = getWeiboInfo(htmlStrs.get(i));
-                for (int j = 0; j < oneHTMLWeibos.size(); j++) {
-                    // 存到总微博里
-                    if (!allWeibos.contains(oneHTMLWeibos.get(j))) {
-                        allWeibos.add(oneHTMLWeibos.get(j));
-                    }
+        // 从搜索页面html文件中得到微博，微博id，存入向量容器中
+        for (int i = 0; i < htmlStrs.size(); i++) {
+            List<WeiboInfo> oneHTMLWeibos = getWeiboInfo(htmlStrs.get(i));
+            for (int j = 0; j < oneHTMLWeibos.size(); j++) {
+                // 存到总微博里
+                if (!allWeibos.contains(oneHTMLWeibos.get(j))) {
+                    allWeibos.add(oneHTMLWeibos.get(j));
                 }
             }
-
-            // 将该关键词相关的微博信息写入到txt文件
-            writeWeiboInfoToFile(allWeibos, properties.get("bowenSavePath").toString() + searchWord + ".txt");
         }
+
+        // 将该关键词相关的微博信息写入到txt文件
+        writeWeiboInfoToFile(allWeibos, properties.get("bowenSavePath").toString() + searchWord + ".txt");
+    }
+
+    public static void main(String[] args) throws Exception {
+        searchWeibo("程序员",5);
     }
 }
