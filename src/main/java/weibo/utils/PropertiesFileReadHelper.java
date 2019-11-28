@@ -4,11 +4,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesFileReadHelper {
-    private static String dirverName;
-    private static String url;
-    private static String username;
-    private static String password;
-
     /**
      * 读取属性[位于maven的resource文件夹下]
      * @param fileName
@@ -25,12 +20,5 @@ public class PropertiesFileReadHelper {
             e.printStackTrace();
         }
         return properties;
-    }
-
-    //测试
-    public static void main(String[] args) {
-        Properties result = PropertiesFileReadHelper.readProperties("userconfig.properties");
-        System.out.println(result.getProperty("username"));
-        System.out.println(result.getProperty("password"));
     }
 }

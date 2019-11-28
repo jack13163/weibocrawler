@@ -10,13 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ImageDownload {
-
-    public static void main(String[] args) throws Exception {
-        download("http://ww1.sinaimg.cn/thumb180/006c4U6xly1g99zgz1qb5j34g02yoe81.jpg", "93694182a2ad4778933fa15aa2fe44c0.jpg", "Data/imgs/");
-    }
-
     /**
-     * 根据url路径下载图片
+     * 根据url路径下载图片，用户自定义名称
      *
      * @param urlString
      * @param filename

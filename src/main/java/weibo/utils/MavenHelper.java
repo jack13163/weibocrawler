@@ -14,6 +14,9 @@ import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
 public class MavenHelper {
+    /**
+     * 查找maven仓库
+     */
     public static void main(String[] args) throws FileNotFoundException, IOException {
         Element dependencys = new DOMElement("dependencies");
         File dir = new File("lib");
@@ -57,8 +60,6 @@ public class MavenHelper {
                 ele = getDependices(bundleName, bundleVersion);
                 sb.setLength(0);
                 sb.append(bundleName + "\t").append(bundleVersion);
-                // System.out.println(sb.toString());
-                // System.out.println(ele.asXML());
             }
             ele = getDependices(bundleName, bundleVersion);
             if (ele.elements().size() == 0) {
@@ -69,11 +70,16 @@ public class MavenHelper {
                         sb.toString() + " not find, please visit https://mvnrepository.com/ to get more info.");
             }
             dependencys.add(ele);
-            // System.out.println();
         }
         System.out.println(dependencys.asXML());
     }
 
+    /**
+     * 从maven仓库中搜索依赖
+     * @param key
+     * @param ver
+     * @return
+     */
     public static Element getDependices(String key, String ver) {
         Element dependency = new DOMElement("dependency");
         // 设置代理

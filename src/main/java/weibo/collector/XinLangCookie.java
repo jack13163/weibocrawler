@@ -95,8 +95,6 @@ public class XinLangCookie {
     private void preLogin() throws ClientProtocolException, IOException, URISyntaxException {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        //RequestConfig globalConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES).build();
-        //CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(globalConfig).build();
 
         su = new String(Base64.encodeBase64(URLEncoder.encode(this.username, "UTF-8").getBytes()));
 
@@ -237,15 +235,10 @@ public class XinLangCookie {
     private void noCrossXinlang(String url) throws URISyntaxException, ClientProtocolException, IOException {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        //RequestConfig globalConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES).build();
-        //CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(globalConfig).build();
 
         HttpGet httpGet = new HttpGet(new URI(url));
-
-        //httpGet.setHeader("Host", "login.sina.com.cn");
         httpGet.setHeader("Connection", "keep-alive");
         httpGet.setHeader("Accept", "*/*");
-        //httpGet.setHeader("Referer", "https://login.sina.com.cn/signup/signin.php");
         httpGet.setHeader("Accept-Encoding", "gzip, deflate, br");
         httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.8");
         httpGet.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
@@ -255,7 +248,6 @@ public class XinLangCookie {
 
         HttpEntity entity = httpResponse.getEntity();
         String str = EntityUtils.toString(entity,"utf-8");
-        //System.out.println("【不跨域登录新浪获取的页面】:"+str);
         FileWriter fw = new FileWriter("Data/模拟新浪登录获取网页.txt");
         fw.write(str);
         fw.close();
@@ -272,15 +264,10 @@ public class XinLangCookie {
     private String crossWeibo(String url) throws URISyntaxException, ClientProtocolException, IOException {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        //RequestConfig globalConfig = RequestConfig.custom().setCookieSpec(CookieSpecs.IGNORE_COOKIES).build();
-        //CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(globalConfig).build();
 
         HttpGet httpGet = new HttpGet(new URI(url));
-
-        //httpGet.setHeader("Host", "login.sina.com.cn");
         httpGet.setHeader("Connection", "keep-alive");
         httpGet.setHeader("Accept", "*/*");
-        //httpGet.setHeader("Referer", "https://login.sina.com.cn/signup/signin.php");
         httpGet.setHeader("Accept-Encoding", "gzip, deflate, br");
         httpGet.setHeader("Accept-Language", "zh-CN,zh;q=0.8");
         httpGet.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
@@ -289,7 +276,6 @@ public class XinLangCookie {
         HttpResponse httpResponse = httpclient.execute(httpGet);
         HttpEntity entity = httpResponse.getEntity();
         String str = EntityUtils.toString(entity,"utf-8");
-        //System.out.println("【跨域登录微博获取的页面】:"+str);
         FileWriter fw = new FileWriter("Data/模拟微博登录获取网页.txt");
         fw.write(str);
         fw.close();
@@ -309,7 +295,6 @@ public class XinLangCookie {
             e.printStackTrace();
         }
 
-        //httpGet.addHeader(new BasicHeader("Cookie", this.cookie_weibocom.toString()));//携带对应cookie
         return result;
     }
 }

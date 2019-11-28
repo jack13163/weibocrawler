@@ -21,8 +21,6 @@ import java.util.regex.Pattern;
 public class WeiboController extends BreadthCrawler {
     private String cookie = "";
     private Properties properties = null;
-    private static final String cookiePath = "Data/cookie.txt";
-    private static final String plainIPsPath = "Data/plainIPs.txt";
 
     public WeiboController(String crawlPath, boolean autoParse) throws Exception {
         super(crawlPath, autoParse);
@@ -30,10 +28,10 @@ public class WeiboController extends BreadthCrawler {
         properties = PropertiesFileReadHelper.readProperties("userconfig.properties");
 
         // 获取登陆凭证
-        String tmp = FileOperation.html2String(cookiePath);
+        String tmp = FileOperation.html2String(properties.get("cookiePath").toString());
         if (tmp.isEmpty() || tmp == "") {
             cookie = XinLangCookie.loginAndGetCookies(properties.get("userName").toString(), properties.get("password").toString());
-            FileOperation.writeString(cookie, cookiePath);
+            FileOperation.writeString(cookie, properties.get("cookiePath").toString());
             if (!cookie.contains("SUB")) {
                 throw new Exception("weibo login failed");
             }
@@ -53,7 +51,7 @@ public class WeiboController extends BreadthCrawler {
     public void execute(CrawlDatum datum, CrawlDatums next) throws Exception {
         String topicResult = HttpRequestHelper.getResultOkHttpClient(datum.url(), cookie);
 
-        // 存储详情链接
+        // 查找所有博主的昵称和个人主页链接
         Map<String, String> detailMap = new HashMap<String, String>();
         Matcher matcher = Pattern.compile("<a\\s+?href=\"([^\"]*)\".+?nick-name=\"([^\"]*)\".+?>").matcher(topicResult);
         while (matcher.find()) {
